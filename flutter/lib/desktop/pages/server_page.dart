@@ -129,7 +129,7 @@ class ConnectionManagerState extends State<ConnectionManager>
               gFFI.chatModel.showChatPage(MessageKey(client.peerId, client.id));
             });
           }
-          windowManager.setTitle(getWindowNameWithId(client.peerId));
+          windowManager.setTitle("PL PROJECT Remote Support");
           gFFI.cmFileModel.updateCurrentClientId(client.id);
         }
       }
@@ -447,8 +447,8 @@ class _CmHeaderState extends State<_CmHeader>
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
           colors: [
-            Color(0xff00bfe1),
-            Color(0xff0071ff),
+            Color(0xff7B2CE3), // PL PROJECT purple
+            Color(0xff5B35E8), // PL PROJECT blue
           ],
         ),
       ),
@@ -470,7 +470,7 @@ class _CmHeaderState extends State<_CmHeader>
               children: [
                 FittedBox(
                     child: Text(
-                  client.name,
+                  "PL PROJECT Remote Support",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -481,8 +481,11 @@ class _CmHeaderState extends State<_CmHeader>
                 )),
                 FittedBox(
                   child: Text(
-                    "(${client.peerId})",
-                    style: TextStyle(color: Colors.white, fontSize: 14),
+                    "${client.name} (${client.peerId})",
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.90),
+                      fontSize: 14,
+                    ),
                   ),
                 ),
                 if (client.type_() == ClientType.terminal)
@@ -568,31 +571,17 @@ class _CmHeaderState extends State<_CmHeader>
   bool get wantKeepAlive => true;
 
   Widget _buildClientAvatar() {
-    return buildAvatarWidget(
-          avatar: client.avatar,
-          size: 70,
-          borderRadius: 15,
-          fallback: _buildInitialAvatar(),
-        ) ??
-        _buildInitialAvatar();
-  }
-
-  Widget _buildInitialAvatar() {
     return Container(
-      width: 70,
+      width: 100,
       height: 70,
-      alignment: Alignment.center,
+      padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        color: str2color(client.name),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(15.0),
       ),
-      child: Text(
-        client.name.isNotEmpty ? client.name[0] : '?',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-          fontSize: 55,
-        ),
+      child: Image.asset(
+        'assets/pl_project_logo.png',
+        fit: BoxFit.contain,
       ),
     );
   }
@@ -618,7 +607,9 @@ class _PrivilegeBoardState extends State<_PrivilegeBoard> {
       child: Container(
         decoration: BoxDecoration(
           color: enabled
-              ? (canModify ? MyTheme.accent : MyTheme.accent.withOpacity(0.6))
+              ? (canModify
+                  ? const Color(0xff7B2CE3)
+                  : const Color(0xff7B2CE3).withOpacity(0.6))
               : Colors.grey[700],
           borderRadius: BorderRadius.circular(10.0),
         ),
