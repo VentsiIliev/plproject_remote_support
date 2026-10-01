@@ -1,182 +1,264 @@
-<p align="center">
-  <img src="res/logo-header.svg" alt="RustDesk - Your remote desktop"><br>
-  <a href="#raw-steps-to-build">Build</a> •
-  <a href="#how-to-build-with-docker">Docker</a> •
-  <a href="#file-structure">Structure</a> •
-  <a href="#snapshot">Snapshot</a><br>
-  [<a href="docs/README-UA.md">Українська</a>] | [<a href="docs/README-CS.md">česky</a>] | [<a href="docs/README-ZH.md">中文</a>] | [<a href="docs/README-HU.md">Magyar</a>] | [<a href="docs/README-ES.md">Español</a>] | [<a href="docs/README-FA.md">فارسی</a>] | [<a href="docs/README-FR.md">Français</a>] | [<a href="docs/README-DE.md">Deutsch</a>] | [<a href="docs/README-PL.md">Polski</a>] | [<a href="docs/README-ID.md">Indonesian</a>] | [<a href="docs/README-FI.md">Suomi</a>] | [<a href="docs/README-ML.md">മലയാളം</a>] | [<a href="docs/README-JP.md">日本語</a>] | [<a href="docs/README-NL.md">Nederlands</a>] | [<a href="docs/README-IT.md">Italiano</a>] | [<a href="docs/README-RU.md">Русский</a>] | [<a href="docs/README-PTBR.md">Português (Brasil)</a>] | [<a href="docs/README-EO.md">Esperanto</a>] | [<a href="docs/README-KR.md">한국어</a>] | [<a href="docs/README-AR.md">العربي</a>] | [<a href="docs/README-VN.md">Tiếng Việt</a>] | [<a href="docs/README-DA.md">Dansk</a>] | [<a href="docs/README-GR.md">Ελληνικά</a>] | [<a href="docs/README-TR.md">Türkçe</a>] | [<a href="docs/README-NO.md">Norsk</a>] | [<a href="docs/README-RO.md">Română</a>]<br>
-  <b>We need your help to translate this README, <a href="https://github.com/rustdesk/rustdesk/tree/master/src/lang">RustDesk UI</a> and <a href="https://github.com/rustdesk/doc.rustdesk.com">RustDesk Doc</a> to your native language</b>
-</p>
+# PL PROJECT Remote Support
 
-> [!Caution]
-> **Misuse Disclaimer:** <br>
-> The developers of RustDesk do not condone or support any unethical or illegal use of this software. Misuse, such as unauthorized access, control or invasion of privacy, is strictly against our guidelines. The authors are not responsible for any misuse of the application.
+PL PROJECT Remote Support is a customized remote-support client for PL PROJECT
+robot systems.
 
+It is based on RustDesk 1.4.9 and is designed to connect PL PROJECT robots
+through a self-hosted RustDesk OSS server rather than relying on the public
+RustDesk infrastructure.
 
-Chat with us: [Discord](https://discord.gg/nDceKgxnkV) | [Twitter](https://twitter.com/rustdesk) | [Reddit](https://www.reddit.com/r/rustdesk) | [YouTube](https://www.youtube.com/@rustdesk)
+## Purpose
 
-[![RustDesk Server Pro](https://img.shields.io/badge/RustDesk%20Server%20Pro-Advanced%20Features-blue)](https://rustdesk.com/pricing.html)
+PL PROJECT Remote Support provides remote desktop access to robot computers for
+support, diagnostics, commissioning and maintenance.
 
-Yet another remote desktop solution, written in Rust. Works out of the box with no configuration required. You have full control of your data, with no concerns about security. You can use our rendezvous/relay server, [set up your own](https://rustdesk.com/server), or [write your own rendezvous/relay server](https://github.com/rustdesk/rustdesk-server-demo).
+The Linux client provides:
 
-![image](https://user-images.githubusercontent.com/71636191/171661982-430285f0-2e12-4b1d-9957-4a58e375304d.png)
+- Remote viewing and control of the robot's actual desktop
+- Unattended remote access
+- Self-hosted ID and relay infrastructure
+- PL PROJECT branding
+- PL PROJECT application and tray icons
+- PL PROJECT branded Connection Manager
+- Visible active remote-session controls
+- Permanent-password support
+- Automatic service startup
+- Linux system tray integration
+- No RustDesk account login requirement
 
-RustDesk welcomes contribution from everyone. See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for help getting started.
+## Architecture
 
-[**FAQ**](https://github.com/rustdesk/rustdesk/wiki/FAQ)
+A typical installation consists of:
 
-[**BINARY DOWNLOAD**](https://github.com/rustdesk/rustdesk/releases)
+    Support Laptop
+          |
+          | Remote connection
+          |
+          v
+    PL PROJECT RustDesk OSS Server
+       hbbs + hbbr
+          |
+          |
+          v
+    Robot Computer
+    PL PROJECT Remote Support
 
-[**NIGHTLY BUILD**](https://github.com/rustdesk/rustdesk/releases/tag/nightly)
+The self-hosted server provides the RustDesk ID and relay services.
 
-[<img src="https://f-droid.org/badge/get-it-on.png"
-    alt="Get it on F-Droid"
-    height="80">](https://f-droid.org/en/packages/com.carriez.flutter_hbb)
-[<img src="https://flathub.org/api/badge?svg&locale=en"
-    alt="Get it on Flathub"
-    height="80">](https://flathub.org/apps/com.rustdesk.RustDesk)
+Each robot receives its own RustDesk ID and can be configured with an
+unattended-access password.
 
-## Dependencies
+Server addresses, public keys and robot credentials are deployment-specific
+and are not stored in this repository.
 
-Desktop versions use Flutter or Sciter (deprecated) for GUI, this tutorial is for Sciter only, since it is easier and more friendly to start. Check out our [CI](https://github.com/rustdesk/rustdesk/blob/master/.github/workflows/flutter-build.yml) for building Flutter version.
+## Supported Platform
 
-Please download Sciter dynamic library yourself.
+The current PL PROJECT build has been developed and tested for:
 
-[Windows](https://raw.githubusercontent.com/c-smile/sciter-sdk/master/bin.win/x64/sciter.dll) |
-[Linux](https://raw.githubusercontent.com/c-smile/sciter-sdk/master/bin.lnx/x64/libsciter-gtk.so) |
-[macOS](https://raw.githubusercontent.com/c-smile/sciter-sdk/master/bin.osx/libsciter.dylib)
+- Ubuntu 24.04 LTS
+- x86_64 / amd64
+- X11 desktop sessions
 
-## Raw Steps to build
+The generated Linux installer is a Debian package:
 
-- Prepare your Rust development env and C++ build env
+    rustdesk-1.4.9.deb
 
-- Install [vcpkg](https://github.com/microsoft/vcpkg), and set `VCPKG_ROOT` env variable correctly
+Windows support can be built from the same RustDesk codebase, but the current
+documented PL PROJECT build procedure focuses on Linux.
 
-  - Windows: vcpkg install libvpx:x64-windows-static libyuv:x64-windows-static opus:x64-windows-static aom:x64-windows-static
-  - Linux/macOS: vcpkg install libvpx libyuv opus aom
+## Building
 
-- run `cargo run`
+Detailed build requirements and the complete reproducible build procedure are
+documented in:
 
-## [Build](https://rustdesk.com/docs/en/dev/build/)
+    BUILD_REQUIREMENTS.md
 
-## How to Build on Linux
+The tested toolchain includes:
 
-### Ubuntu 18 (Debian 10)
+- Rust 1.75.0
+- Flutter 3.24.5 for the final application
+- Flutter 3.22.3 for bridge generation
+- flutter_rust_bridge_codegen 1.80.1
+- cargo-expand 1.0.95
+- pinned vcpkg dependencies
 
-```sh
-sudo apt install -y zip g++ gcc git curl wget nasm yasm libgtk-3-dev clang libxcb-randr0-dev libxdo-dev \
-        libxfixes-dev libxcb-shape0-dev libxcb-xfixes0-dev libasound2-dev libpulse-dev cmake make \
-        libclang-dev ninja-build libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libpam0g-dev
-```
+### Build Rust
 
-### openSUSE Tumbleweed
+From the repository root:
 
-```sh
-sudo zypper install gcc-c++ git curl wget nasm yasm gcc gtk3-devel clang libxcb-devel libXfixes-devel cmake alsa-lib-devel gstreamer-devel gstreamer-plugins-base-devel xdotool-devel pam-devel
-```
+    export VCPKG_ROOT="$HOME/src/vcpkg"
+    export PATH="$HOME/src/flutter-3.24.5/bin:$HOME/.cargo/bin:$PATH"
+    export CARGO_INCREMENTAL=0
 
-### Fedora 28 (CentOS 8)
+    cargo build --locked --lib \
+      --features hwcodec,flutter,unix-file-copy-paste \
+      --release
 
-```sh
-sudo yum -y install gcc-c++ git curl wget nasm yasm gcc gtk3-devel clang libxcb-devel libxdo-devel libXfixes-devel pulseaudio-libs-devel cmake alsa-lib-devel gstreamer1-devel gstreamer1-plugins-base-devel pam-devel
-```
+### Build Debian package
 
-### Arch (Manjaro)
+After the Rust library has been built:
 
-```sh
-sudo pacman -Syu --needed unzip git cmake gcc curl wget yasm nasm zip make pkg-config clang gtk3 xdotool libxcb libxfixes alsa-lib pipewire
-```
+    export DEB_ARCH=amd64
 
-### Install vcpkg
+    python3 ./build.py --flutter --skip-cargo
 
-```sh
-git clone https://github.com/microsoft/vcpkg
-cd vcpkg
-git checkout 2023.04.15
-cd ..
-vcpkg/bootstrap-vcpkg.sh
-export VCPKG_ROOT=$HOME/vcpkg
-vcpkg/vcpkg install libvpx libyuv opus aom
-```
+The resulting PL PROJECT Debian package is:
 
-### Fix libvpx (For Fedora)
+    rustdesk-1.4.9.deb
 
-```sh
-cd vcpkg/buildtrees/libvpx/src
-cd *
-./configure
-sed -i 's/CFLAGS+=-I/CFLAGS+=-fPIC -I/g' Makefile
-sed -i 's/CXXFLAGS+=-I/CXXFLAGS+=-fPIC -I/g' Makefile
-make
-cp libvpx.a $HOME/vcpkg/installed/x64-linux/lib/
-cd
-```
+See `BUILD_REQUIREMENTS.md` for the complete setup procedure.
 
-### Build
+## Installation
 
-```sh
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source $HOME/.cargo/env
-git clone --recurse-submodules https://github.com/rustdesk/rustdesk
-cd rustdesk
-mkdir -p target/debug
-wget https://raw.githubusercontent.com/c-smile/sciter-sdk/master/bin.lnx/x64/libsciter-gtk.so
-mv libsciter-gtk.so target/debug
-VCPKG_ROOT=$HOME/vcpkg cargo run
-```
+Install the package with:
 
-## How to build with Docker
+    sudo systemctl stop rustdesk
+    sudo dpkg -i ./rustdesk-1.4.9.deb
+    sudo systemctl daemon-reload
+    sudo systemctl restart rustdesk
 
-Begin by cloning the repository and building the Docker container:
+Check the service:
 
-```sh
-git clone https://github.com/rustdesk/rustdesk
-cd rustdesk
-git submodule update --init --recursive
-docker build -t "rustdesk-builder" .
-```
+    systemctl status rustdesk
 
-Then, each time you need to build the application, run the following command:
+Check the running processes:
 
-```sh
-docker run --rm -it -v $PWD:/home/user/rustdesk -v rustdesk-git-cache:/home/user/.cargo/git -v rustdesk-registry-cache:/home/user/.cargo/registry -e PUID="$(id -u)" -e PGID="$(id -g)" rustdesk-builder
-```
+    ps -ef | grep '[r]ustdesk'
 
-Note that the first build may take longer before dependencies are cached, subsequent builds will be faster. Additionally, if you need to specify different arguments to the build command, you may do so at the end of the command in the `<OPTIONAL-ARGS>` position. For instance, if you wanted to build an optimized release version, you would run the command above followed by `--release`. The resulting executable will be available in the target folder on your system, and can be run with:
+A normal PL PROJECT Linux installation can contain:
 
-```sh
-target/debug/rustdesk
-```
+    rustdesk --service
+    rustdesk --server
+    rustdesk --tray
 
-Or, if you're running a release executable:
+## Launching the GUI
 
-```sh
-target/release/rustdesk
-```
+Launch the desktop application with:
 
-Please ensure that you run these commands from the root of the RustDesk repository, or the application may not find the required resources. Also note that other cargo subcommands such as `install` or `run` are not currently supported via this method as they would install or run the program inside the container instead of the host.
+    /usr/bin/rustdesk
 
-## File Structure
+The installed product is displayed as:
 
-- **[libs/hbb_common](https://github.com/rustdesk/rustdesk/tree/master/libs/hbb_common)**: video codec, config, tcp/udp wrapper, protobuf, fs functions for file transfer, and some other utility functions
-- **[libs/scrap](https://github.com/rustdesk/rustdesk/tree/master/libs/scrap)**: screen capture
-- **[libs/enigo](https://github.com/rustdesk/rustdesk/tree/master/libs/enigo)**: platform specific keyboard/mouse control
-- **[libs/clipboard](https://github.com/rustdesk/rustdesk/tree/master/libs/clipboard)**: file copy and paste implementation for Windows, Linux, macOS.
-- **[src/ui](https://github.com/rustdesk/rustdesk/tree/master/src/ui)**: obsolete Sciter UI (deprecated)
-- **[src/server](https://github.com/rustdesk/rustdesk/tree/master/src/server)**: audio/clipboard/input/video services, and network connections
-- **[src/client.rs](https://github.com/rustdesk/rustdesk/tree/master/src/client.rs)**: start a peer connection
-- **[src/rendezvous_mediator.rs](https://github.com/rustdesk/rustdesk/tree/master/src/rendezvous_mediator.rs)**: Communicate with [rustdesk-server](https://github.com/rustdesk/rustdesk-server), wait for remote direct (TCP hole punching) or relayed connection
-- **[src/platform](https://github.com/rustdesk/rustdesk/tree/master/src/platform)**: platform specific code
-- **[flutter](https://github.com/rustdesk/rustdesk/tree/master/flutter)**: Flutter code for desktop and mobile
-- **[flutter/web/js](https://github.com/rustdesk/rustdesk/tree/master/flutter/web/v1/js)**: JavaScript for Flutter web client
+    PL PROJECT Remote Support
 
-## Screenshots
+## Robot Configuration
 
-![Connection Manager](https://github.com/rustdesk/rustdesk/assets/28412477/db82d4e7-c4bc-4823-8e6f-6af7eadf7651)
+A robot client must be configured to use the PL PROJECT self-hosted RustDesk
+server.
 
-![Connected to a Windows PC](https://github.com/rustdesk/rustdesk/assets/28412477/9baa91e9-3362-4d06-aa1a-7518edcbd7ea)
+Typical configuration requires:
 
-![File Transfer](https://github.com/rustdesk/rustdesk/assets/28412477/39511ad3-aa9a-4f8c-8947-1cce286a46ad)
+- ID Server address
+- Server public key
+- Unattended-access password
 
-![TCP Tunneling](https://github.com/rustdesk/rustdesk/assets/28412477/78e8708f-e87e-4570-8373-1360033ea6c5)
+The relay server can be configured separately when required.
 
+Do not commit deployment passwords, server private keys or customer-specific
+credentials to this repository.
+
+## Active Remote Sessions
+
+PL PROJECT Remote Support intentionally keeps the active-session Connection
+Manager available during a support session.
+
+This allows someone at the robot to see that a remote session is active and
+provides access to session permissions and the Disconnect control.
+
+The system tray is also enabled and uses PL PROJECT branding.
+
+## Account Login
+
+The desktop Account/Login entry is hidden in the PL PROJECT client.
+
+The current PL PROJECT deployment uses RustDesk OSS ID and relay services and
+does not require the RustDesk Pro account API for normal robot remote support.
+
+The underlying upstream account implementation has not been removed from the
+source code.
+
+## Branding
+
+The customized client includes:
+
+- PL PROJECT Remote Support product name
+- PL PROJECT application icon
+- PL PROJECT tray icon
+- PL PROJECT logo in the Connection Manager
+- PL PROJECT purple application theme
+- PL PROJECT website
+- PL PROJECT Debian package metadata
+
+Some internal RustDesk names are deliberately retained for compatibility,
+including the executable and Debian package identifiers.
+
+## Development Branch
+
+PL PROJECT development is performed on:
+
+    plproject-remote-support
+
+The original RustDesk repository can remain configured as the `origin` remote,
+while the PL PROJECT repository is configured as `plproject`.
+
+Example:
+
+    git remote -v
+
+Push PL PROJECT changes with:
+
+    git push plproject plproject-remote-support
+
+## Repository Safety
+
+Never commit:
+
+- RustDesk server private keys
+- unattended-access passwords
+- GitHub access tokens
+- SSH private keys
+- customer credentials
+- API secrets
+- robot-specific secrets
+
+Review staged changes before every push:
+
+    git diff --cached --check
+    git diff --cached --stat
+    git status
+
+## Python Tooling
+
+Small image/resource-generation utilities use Python and Pillow.
+
+Install with:
+
+    python3 -m pip install -r requirements.txt
+
+Python is not the primary application build system. Rust, Flutter and native
+Linux dependencies are documented in `BUILD_REQUIREMENTS.md`.
+
+## Upstream Project
+
+PL PROJECT Remote Support is based on the RustDesk open-source project.
+
+The PL PROJECT fork retains upstream code and internal compatibility where
+required while adding PL PROJECT-specific branding and deployment behavior.
+
+## License
+
+RustDesk is licensed under the GNU Affero General Public License version 3
+(AGPL-3.0).
+
+PL PROJECT Remote Support contains modified RustDesk source code and must be
+distributed in accordance with the applicable AGPL requirements.
+
+Distribution of modified binaries may require making the corresponding source
+code available to recipients.
+
+PL PROJECT branding does not transfer ownership of upstream RustDesk code, and
+legally required upstream copyright and licensing information must be
+preserved.
+
+See the repository license files and `BUILD_REQUIREMENTS.md` before distributing
+builds to customers.
