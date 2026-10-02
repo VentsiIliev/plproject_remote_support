@@ -56,3 +56,10 @@ vcpkg_installed
 flutter/lib/generated_plugin_registrant.dart
 libsciter.dylib
 flutter/web/
+# PL PROJECT native mobile branding assets
+!flutter/android/app/src/main/res/mipmap-*/ic_launcher.png
+!flutter/android/app/src/main/res/mipmap-*/ic_launcher_foreground.png
+!flutter/android/app/src/main/res/mipmap-*/ic_stat_logo.png
+!flutter/android/app/src/main/res/drawable-*/pl_project_launch.png
+!flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/*.png
+!flutter/ios/Runner/Assets.xcassets/LaunchImage.imageset/*.png

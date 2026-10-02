@@ -1616,7 +1616,10 @@ String translate(String name) {
   if (name.startsWith('Failed to') && name.contains(': ')) {
     return name.split(': ').map((x) => translate(x)).join(': ');
   }
-  return platformFFI.translate(name, localeName);
+  final text = platformFFI.translate(name, localeName);
+  return isAndroid || isIOS
+      ? text.replaceAll('RustDesk', mobileAppName)
+      : text;
 }
 
 // This function must be kept the same as the one in rust and sciter code.
@@ -4184,8 +4187,11 @@ List<String> getPrinterNames() {
   }
 }
 
+const mobileAppName = 'PL PROJECT Remote Support';
+
 String _appName = '';
 String get appName {
+  if (isAndroid || isIOS) return mobileAppName;
   if (_appName.isEmpty) {
     _appName = bind.mainGetAppNameSync();
   }

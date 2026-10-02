@@ -150,7 +150,21 @@ class HomePageState extends State<HomePage> {
         ],
       );
     }
-    return Text(bind.mainGetAppNameSync());
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image.asset('assets/pl_project_logo.png', width: 72, height: 30),
+        const SizedBox(width: 8),
+        const Flexible(
+          child: Text(
+            mobileAppName,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+      ],
+    );
   }
 }
 
