@@ -63,3 +63,10 @@ flutter/web/
 !flutter/android/app/src/main/res/drawable-*/pl_project_launch.png
 !flutter/ios/Runner/Assets.xcassets/AppIcon.appiconset/*.png
 !flutter/ios/Runner/Assets.xcassets/LaunchImage.imageset/*.png
+
+# Local Android release signing credentials
+.local/android-signing/
+flutter/android/key.properties
+*.jks
+*.keystore
+flutter/android/.kotlin/

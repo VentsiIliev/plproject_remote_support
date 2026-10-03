@@ -89,3 +89,8 @@ packaging. This APK is signed with a debug key for device testing.
 The inherited scam-warning dialog and countdown have been removed from both
 Android service-start controls. Android screen-capture approval and the Input
 Control accessibility permission flow remain in place.
+
+For the initial signed Android release and complete reproducible build steps,
+see [ANDROID_BUILD_REQUIREMENTS.md](../ANDROID_BUILD_REQUIREMENTS.md). The
+end-to-end script `flutter/build_plproject_android.sh release` was validated
+with the prepared toolchain; signing and native-library packaging checks passed.

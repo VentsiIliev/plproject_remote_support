@@ -66,6 +66,10 @@ The generated Linux installer is a Debian package:
 Windows support can be built from the same RustDesk codebase, but the current
 documented PL PROJECT build procedure focuses on Linux.
 
+Android ARM64 support is available with PL PROJECT branding. See
+[Android build and release instructions](ANDROID_BUILD_REQUIREMENTS.md) for the
+pinned toolchain, APK builds, signing, and installation.
+
 ## Building
 
 Detailed build requirements and the complete reproducible build procedure are
